@@ -1,9 +1,7 @@
 package example
 
-object Hello extends Greeting with App {
-  println(greeting)
-}
+import core.LengaFactory
 
-trait Greeting {
-  lazy val greeting: String = "hello"
+object Hello extends App {
+  println(LengaFactory.configure())
 }
