@@ -16,7 +16,18 @@ object ResourceCollector {
     files
       .filter(_.isFile)
       .map(f => {
-        f.getName.stripPrefix(mailDirName)
+        val fileName = f.getName.stripPrefix(mailDirName)
+        val parentPath = s"${f.getParent.stripPrefix(mailDirName)}"
+        if (fileName.startsWith("_index")) {
+          parentPath
+        } else {
+          if (parentPath.isEmpty) {
+            s"/${f.getName.split("\\.").head}"
+          } else {
+            s"$parentPath${f.getName.split("\\.").head}"
+          }
+        }
       })
+      .distinct
   }
 }
